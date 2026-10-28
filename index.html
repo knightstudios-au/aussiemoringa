@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Figtree:wght@400;500;600&display=swap">
 <style>
 body{margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
 a{color:#2e6b3a}a:hover{color:#16241a}
 </style>
 </head>
@@ -16,7 +17,7 @@ a{color:#2e6b3a}a:hover{color:#16241a}
 <div id="top" style="min-height: 100vh; background: #f6f8f2; color: #16241a; font-family: 'Figtree', system-ui, sans-serif; font-size: 17px; line-height: 1.55">
 
   <!-- Top bar -->
-  <header style="background: #f6f8f2; border-bottom: 1px solid #cfe0c4">
+  <header style="position: sticky; top: 0; z-index: 50; background: #f6f8f2; border-bottom: 1px solid #cfe0c4">
     <div style="max-width: 1200px; margin: 0 auto; padding: 16px 32px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px">
       <a href="#top" style="display: block; line-height: 0"><img src="/assets/coop-logo.svg" alt="Moringa Farmers Australia Co-Operative" style="height: 54px; width: auto; display: block"></a>
       <nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px">
@@ -200,20 +201,24 @@ a{color:#2e6b3a}a:hover{color:#16241a}
         <p style="margin: 0; color: #16241a">Send us your details and we will reply in writing with the co-operative's information pack. Terms are set out in the offer documents we send to people who enquire.</p>
         <p style="margin: 0; color: #4a5a4d; font-size: 15px">Prefer to talk? [PHONE] or [EMAIL]</p>
       </div>
-      <form style="flex: 1 1 420px; min-width: 0; background: #f6f8f2; border-radius: 16px; padding: 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+      <form method="POST" action="https://formsubmit.co/ausgold@gmail.com" style="flex: 1 1 420px; min-width: 0; background: #f6f8f2; border-radius: 16px; padding: 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+        <input type="hidden" name="_subject" value="New enquiry from aussiemoringa.com">
+        <input type="hidden" name="_next" value="https://aussiemoringa.com/?sent=1">
+        <input type="hidden" name="_captcha" value="true">
+        <input type="text" name="_honey" style="display: none" tabindex="-1" autocomplete="off">
         <div style="display: flex; flex-direction: column; gap: 6px">
           <label for="name" style="font-size: 14px; font-weight: 600; color: #16241a">Name</label>
-          <input id="name" type="text" style="height: 48px; box-sizing: border-box; border: 1px solid #6b7d6e; border-radius: 8px; padding: 0 14px; font-size: 16px; font-family: inherit; background: #ffffff; color: #16241a">
+          <input id="name" name="name" type="text" required style="height: 48px; box-sizing: border-box; border: 1px solid #6b7d6e; border-radius: 8px; padding: 0 14px; font-size: 16px; font-family: inherit; background: #ffffff; color: #16241a">
         </div>
         <div style="display: flex; flex-direction: column; gap: 6px">
           <label for="email" style="font-size: 14px; font-weight: 600; color: #16241a">Email</label>
-          <input id="email" type="email" style="height: 48px; box-sizing: border-box; border: 1px solid #6b7d6e; border-radius: 8px; padding: 0 14px; font-size: 16px; font-family: inherit; background: #ffffff; color: #16241a">
+          <input id="email" name="email" type="email" required style="height: 48px; box-sizing: border-box; border: 1px solid #6b7d6e; border-radius: 8px; padding: 0 14px; font-size: 16px; font-family: inherit; background: #ffffff; color: #16241a">
         </div>
         <div style="display: flex; flex-direction: column; gap: 6px">
           <label for="msg" style="font-size: 14px; font-weight: 600; color: #16241a">What would you like to know?</label>
-          <textarea id="msg" rows="4" style="box-sizing: border-box; border: 1px solid #6b7d6e; border-radius: 8px; padding: 12px 14px; font-size: 16px; font-family: inherit; background: #ffffff; color: #16241a; resize: vertical"></textarea>
+          <textarea id="msg" name="message" required rows="4" style="box-sizing: border-box; border: 1px solid #6b7d6e; border-radius: 8px; padding: 12px 14px; font-size: 16px; font-family: inherit; background: #ffffff; color: #16241a; resize: vertical"></textarea>
         </div>
-        <button type="button" style="align-self: flex-start; min-height: 48px; background: #2e6b3a; color: #f6f8f2; border: 0; border-radius: 8px; padding: 0 28px; font-size: 16px; font-weight: 600; font-family: inherit; cursor: pointer">Send enquiry</button>
+        <button type="submit" style="align-self: flex-start; min-height: 48px; background: #2e6b3a; color: #f6f8f2; border: 0; border-radius: 8px; padding: 0 28px; font-size: 16px; font-weight: 600; font-family: inherit; cursor: pointer">Send enquiry</button>
       </form>
     </div>
   </section>
