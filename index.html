@@ -340,10 +340,7 @@ a{color:#2e6b3a}a:hover{color:#16241a}
         <p style="margin: 0; color: #4a5a4d; font-size: 15px">This is a decision that affects your future income, so please speak to your accountant or financial adviser before you join.</p>
         <p style="margin: 0; color: #4a5a4d; font-size: 15px">Prefer to talk? Call <a href="tel:+61423679780" style="color: #16241a; font-weight: 600">0423 679 780</a> or [EMAIL]</p>
       </div>
-      <form method="POST" action="https://formsubmit.co/ausgold@gmail.com" style="flex: 1 1 420px; min-width: 0; background: #f6f8f2; border-radius: 16px; padding: 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
-        <input type="hidden" name="_subject" value="New enquiry from aussiemoringa.com">
-        <input type="hidden" name="_next" value="https://aussiemoringa.com/?sent=1">
-        <input type="hidden" name="_captcha" value="true">
+      <form id="enquiry-form" method="POST" action="/api/enquiry" style="flex: 1 1 420px; min-width: 0; background: #f6f8f2; border-radius: 16px; padding: 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
         <input type="text" name="_honey" style="display: none" tabindex="-1" autocomplete="off">
         <div style="display: flex; flex-direction: column; gap: 6px">
           <label for="name" style="font-size: 14px; font-weight: 600; color: #16241a">Name</label>
@@ -361,6 +358,7 @@ a{color:#2e6b3a}a:hover{color:#16241a}
           <label for="msg" style="font-size: 14px; font-weight: 600; color: #16241a">What would you like to know?</label>
           <textarea id="msg" name="message" required rows="4" style="box-sizing: border-box; border: 1px solid #6b7d6e; border-radius: 8px; padding: 12px 14px; font-size: 16px; font-family: inherit; background: #ffffff; color: #16241a; resize: vertical"></textarea>
         </div>
+        <p id="enquiry-status" role="status" aria-live="polite" style="margin: 0; font-size: 15px; font-weight: 500; color: #173d23; display: none"></p>
         <button type="submit" style="align-self: flex-start; min-height: 48px; background: #2e6b3a; color: #f6f8f2; border: 0; border-radius: 8px; padding: 0 28px; font-size: 16px; font-weight: 600; font-family: inherit; cursor: pointer">Send enquiry</button>
       </form>
     </div>
@@ -388,5 +386,23 @@ a{color:#2e6b3a}a:hover{color:#16241a}
   </footer>
 
 </div>
+<script>
+(function () {
+  var f = document.getElementById("enquiry-form"), s = document.getElementById("enquiry-status");
+  if (!f) return;
+  function say(t, bad) { s.textContent = t; s.style.display = "block"; s.style.color = bad ? "#8a1f11" : "#173d23"; }
+  if (/[?&]sent=1/.test(location.search)) say("Thanks, we have your enquiry and will reply in writing.");
+  if (/[?&]error=1/.test(location.search)) say("Sorry, that did not send. Please try again or call 0423 679 780.", true);
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var b = f.querySelector("button[type=submit]"); b.disabled = true; say("Sending...");
+    var c = new AbortController(), t = setTimeout(function () { c.abort(); }, 15000);
+    fetch(f.action, { method: "POST", body: new FormData(f), headers: { Accept: "application/json" }, signal: c.signal })
+      .then(function (r) { return r.json(); })
+      .then(function (j) { clearTimeout(t); if (j.ok) { f.reset(); say("Thanks, we have your enquiry and will reply in writing."); } else { say("Please check your details and try again.", true); } b.disabled = false; })
+      .catch(function () { clearTimeout(t); say("Sorry, that did not send. Please try again or call 0423 679 780.", true); b.disabled = false; });
+  });
+})();
+</script>
 </body>
 </html>
