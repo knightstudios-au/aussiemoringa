@@ -4,5 +4,5 @@ Static site for Moringa Farmers Australia Co-Operative. No build step: Cloudflar
 
 - `index.html`: the homepage (inline styles, Google Fonts for Fraunces and Figtree)
 - `assets/`: logo SVGs
-- Draft state: `noindex` meta and `robots.txt` block search engines. Remove both when the site is approved to go public.
+- Indexing: the site is indexable. robots.txt allows crawling and points to sitemap.xml.
 - Placeholders in square brackets (photos, bios, contact details, registered name) still need real content.
