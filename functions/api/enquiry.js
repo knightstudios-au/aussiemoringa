@@ -1,7 +1,7 @@
 // Receives the enquiry form and answers straight away, then passes the
 // message to FormSubmit in the background. FormSubmit can take 20 seconds or
 // more to answer, which made the form time out in the browser.
-const TO = "ausgold@gmail.com";
+const TO = "kevin@aussiemoringa.com";
 
 export async function onRequestPost(context) {
   const { request, waitUntil } = context;
